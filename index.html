@@ -745,8 +745,16 @@
                 type="email"
                 class="mbe-input"
                 placeholder="Enter your e-mail address"
+                id="email-input"
               />
-              <button class="mbe-email-btn">Notify me</button>
+              <button
+                type="submit"
+                id="submit-btn"
+                disabled
+                class="mbe-email-btn"
+              >
+                Notify me
+              </button>
             </form>
           </div>
           <span id="msg" class="mbe-after-signup"></span>
@@ -755,6 +763,20 @@
               "https://script.google.com/macros/s/AKfycbxaSVRPy5VCnHR03iDlFVWmyPBrD-q6nnhUV5-33-UNIKvt145IsVibriMGVeqFr1qU/exec";
             const form = document.forms["submit-to-google-sheet"];
             const msg = document.getElementById("msg");
+            const emailInput = document.getElementById("email-input");
+            const submitBtn = document.getElementById("submit-btn");
+
+            const isValidEmail = (email) => {
+              return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            };
+
+            emailInput.addEventListener("input", () => {
+              if (isValidEmail(emailInput.value)) {
+                submitBtn.removeAttribute("disabled");
+              } else {
+                submitBtn.setAttribute("disabled", "disabled");
+              }
+            });
 
             form.addEventListener("submit", (e) => {
               e.preventDefault();
@@ -764,8 +786,9 @@
                     "You've been added to the list for exclusive first access! Add to Calendar to ensure you don't miss out!";
                   setTimeout(function () {
                     msg.innerHTML = "";
-                  }, 6000);
+                  }, 5000);
                   form.reset();
+                  submitBtn.setAttribute("disabled", "disabled");
                 })
                 .catch((error) => console.error("Error!", error.message));
             });
