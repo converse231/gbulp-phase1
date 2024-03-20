@@ -283,6 +283,84 @@
         position: absolute;
         width: 550px;
         height: auto;
+
+        /* animation-name: floating;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out; */
+      }
+
+      .float-yellow {
+        animation: floatingYellow;
+      }
+
+      .float-blue {
+        animation: floatingBlue;
+      }
+
+      .float-red {
+        animation: floatingRed;
+      }
+
+      .float-green {
+        animation: floatingGreen;
+      }
+
+      .float-yellow,
+      .float-blue,
+      .float-red,
+      .float-green {
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+      }
+
+      @keyframes floatingGreen {
+        0% {
+          transform: rotate(20deg) translate(0, 0px);
+        }
+        50% {
+          transform: rotate(20deg) translate(0, 15px);
+        }
+        100% {
+          transform: rotate(20deg) translate(0, -0px);
+        }
+      }
+
+      @keyframes floatingRed {
+        0% {
+          transform: rotate(-22deg) translate(0, 0px);
+        }
+        50% {
+          transform: rotate(-25deg) translate(0, 15px);
+        }
+        100% {
+          transform: rotate(-22deg) translate(0, -0px);
+        }
+      }
+
+      @keyframes floatingBlue {
+        0% {
+          transform: rotate(-12deg) translate(0, 0px);
+        }
+        50% {
+          transform: rotate(-14deg) translate(0, 15px);
+        }
+        100% {
+          transform: rotate(-12deg) translate(0, -0px);
+        }
+      }
+
+      @keyframes floatingYellow {
+        0% {
+          transform: translate(0, 0px);
+        }
+        50% {
+          transform: translate(0, 15px);
+        }
+        100% {
+          transform: translate(0, -0px);
+        }
       }
 
       .crate-yellow {
@@ -308,6 +386,13 @@
         right: -450px;
         transform: rotate(20deg);
         width: 500px !important;
+      }
+
+      .mbe-after-signup {
+        font-size: 24px;
+        color: green;
+        text-align: center;
+        width: 60%;
       }
 
       @media (min-width: 991px) {
@@ -618,10 +703,16 @@
         <!--<p>Don’t miss your chance to score up to <b>30% off.</b> <br>Free exclusive GBU gifts for all orders over $500. Only while stocks lasts!</p>-->
 
         <section class="mbe-section">
-          <img src="/img/crate-yellow.png" class="crate crate-yellow" />
-          <img src="/img/crate-red.png" class="crate crate-red" />
-          <img src="/img/crate-blue.png" class="crate crate-blue" />
-          <img src="/img/crate-green.png" class="crate crate-green" />
+          <img
+            src="/img/crate-yellow.png"
+            class="crate crate-yellow float-yellow"
+          />
+          <img src="/img/crate-red.png" class="crate crate-red float-red" />
+          <img src="/img/crate-blue.png" class="crate crate-blue float-blue" />
+          <img
+            src="/img/crate-green.png"
+            class="crate crate-green float-green"
+          />
           <div
             class="btn"
             style="display: flex; gap: 15px; justify-content: center"
@@ -652,13 +743,37 @@
           </div>
 
           <div class="mbe-email-section">
-            <input
-              type="email"
-              class="mbe-input"
-              placeholder="Enter your e-mail address"
-            />
-            <button class="mbe-email-btn">Notify me</button>
+            <form name="submit-to-google-sheet">
+              <input
+                name="email"
+                type="email"
+                class="mbe-input"
+                placeholder="Enter your e-mail address"
+              />
+              <button class="mbe-email-btn">Notify me</button>
+            </form>
           </div>
+          <span id="msg" class="mbe-after-signup"></span>
+          <script>
+            const scriptURL =
+              "https://script.google.com/macros/s/AKfycbxaSVRPy5VCnHR03iDlFVWmyPBrD-q6nnhUV5-33-UNIKvt145IsVibriMGVeqFr1qU/exec";
+            const form = document.forms["submit-to-google-sheet"];
+            const msg = document.getElementById("msg");
+
+            form.addEventListener("submit", (e) => {
+              e.preventDefault();
+              fetch(scriptURL, { method: "POST", body: new FormData(form) })
+                .then((response) => {
+                  msg.innerHTML =
+                    "You've been added to the list for exclusive first access! Add to Calendar to ensure you don't miss out!";
+                  setTimeout(function () {
+                    msg.innerHTML = "";
+                  }, 6000);
+                  form.reset();
+                })
+                .catch((error) => console.error("Error!", error.message));
+            });
+          </script>
         </section>
       </div>
       <div class="trust-badge-container">
