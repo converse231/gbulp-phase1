@@ -225,10 +225,11 @@
         flex-direction: column;
         align-items: center;
         gap: 40px;
-        margin-top: 60px;
-        margin-bottom: 100px;
+        margin-top: 120px;
+        margin-bottom: 150px;
         width: 100%;
         position: relative;
+
         /* padding: 0 40px; */
       }
 
@@ -240,11 +241,12 @@
       }
 
       .mbe-heading {
-        font-size: 25px;
+        font-size: 38px;
+        font-weight: bold;
       }
 
       .mbe-sub-heading {
-        font-size: 16px;
+        font-size: 18px;
       }
 
       .mbe-email-section {
@@ -284,13 +286,6 @@
         cursor: not-allowed;
       }
 
-      .crate {
-        display: none;
-        position: absolute;
-        width: 500px;
-        height: auto;
-      }
-
       .float-yellow {
         animation: floatingYellow;
       }
@@ -322,6 +317,7 @@
         padding: 22px;
         border-radius: 50px;
         font-size: 18px;
+        text-transform: uppercase;
       }
 
       @keyframes floatingGreen {
@@ -372,29 +368,35 @@
         }
       }
 
+      .crate {
+        position: absolute;
+        width: 350px;
+        height: auto;
+      }
+
       .crate-yellow {
-        top: -250px;
-        left: -365px;
+        top: -220px;
+        left: -200px;
       }
 
       .crate-red {
-        width: 500px !important;
-        left: -340px;
-        bottom: -220px;
+        width: 320px !important;
+        left: -170px;
+        bottom: -200px;
         transform: rotate(-25deg);
       }
 
       .crate-blue {
         transform: rotate(-10deg);
-        top: -220px;
-        right: -390px;
+        top: -205px;
+        right: -200px;
       }
 
       .crate-green {
-        bottom: -220px;
-        right: -390px;
+        bottom: -200px;
+        right: -150px;
         transform: rotate(20deg);
-        width: 500px !important;
+        width: 300px !important;
       }
 
       .mbe-after-signup {
@@ -472,10 +474,6 @@
           font-size: 22px;
         }
 
-        .crate {
-          display: block;
-        }
-
         .mbe-input {
           font-size: 18px;
         }
@@ -486,6 +484,41 @@
 
         .mbe-email-btn {
           padding: 25px;
+        }
+
+        .mbe-section {
+          margin-bottom: 100px;
+          margin-top: 120px;
+        }
+
+        .crate {
+          width: 500px;
+          display: block;
+        }
+
+        .crate-yellow {
+          top: -250px;
+          left: -365px;
+        }
+
+        .crate-red {
+          width: 500px !important;
+          left: -340px;
+          bottom: -220px;
+          transform: rotate(-25deg);
+        }
+
+        .crate-blue {
+          transform: rotate(-10deg);
+          top: -220px;
+          right: -390px;
+        }
+
+        .crate-green {
+          bottom: -220px;
+          right: -390px;
+          transform: rotate(20deg);
+          width: 500px !important;
         }
       }
     </style>
@@ -777,7 +810,7 @@
                 name="email"
                 type="email"
                 class="mbe-input"
-                placeholder="Enter your e-mail address"
+                placeholder="Enter e-mail address"
                 id="email-input"
               />
               <button
