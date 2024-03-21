@@ -316,6 +316,14 @@
         animation-timing-function: ease-in-out;
       }
 
+      add-to-calendar-button#css-part-example::part(atcb-button) {
+        background-color: #ffcc00;
+        color: black;
+        padding: 22px;
+        border-radius: 50px;
+        font-size: 18px;
+      }
+
       @keyframes floatingGreen {
         0% {
           transform: rotate(20deg) translate(0, 0px);
@@ -394,6 +402,26 @@
         color: green;
         text-align: center;
         width: 60%;
+      }
+
+      .add-to-calendar-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .add-to-calendar-btn {
+        max-width: 260px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 22px;
+        background-color: #ffc000;
+        cursor: pointer;
+        border: none;
+        border-radius: 50px;
       }
 
       @media (min-width: 991px) {
@@ -743,7 +771,7 @@
             </p>
           </div>
 
-          <div class="mbe-email-section">
+          <div class="mbe-email-section" id="mbe-email-section">
             <form name="submit-to-google-sheet">
               <input
                 name="email"
@@ -762,14 +790,43 @@
               </button>
             </form>
           </div>
-          <span id="msg" class="mbe-after-signup"></span>
+          <div
+            class="add-to-calendar-section"
+            id="add-to-calendar-section"
+            style="display: none"
+          >
+            <add-to-calendar-button
+              id="css-part-example"
+              name="Title"
+              label="Add to Calendar"
+              hideIconButton
+              hideBackground
+              options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+              location="World Wide Web"
+              startDate="2024-04-03"
+              endDate="2024-04-13"
+              startTime="18:00"
+              endTime="23:59"
+              timeZone="Australia/ACT"
+              listStyle="modal"
+            ></add-to-calendar-button>
+
+            <span id="msg" class="mbe-after-signup"
+              >You've been added to the list for exclusive first access! Add to
+              Calendar to ensure you don't miss out!</span
+            >
+          </div>
           <script>
             const scriptURL =
               "https://script.google.com/macros/s/AKfycbxaSVRPy5VCnHR03iDlFVWmyPBrD-q6nnhUV5-33-UNIKvt145IsVibriMGVeqFr1qU/exec";
             const form = document.forms["submit-to-google-sheet"];
-            const msg = document.getElementById("msg");
             const emailInput = document.getElementById("email-input");
             const submitBtn = document.getElementById("submit-btn");
+            const addToCalendarSection = document.getElementById(
+              "add-to-calendar-section"
+            );
+            const emailSignUpSection =
+              document.getElementById("mbe-email-section");
 
             const isValidEmail = (email) => {
               return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -785,19 +842,24 @@
 
             form.addEventListener("submit", (e) => {
               e.preventDefault();
+              submitBtn.innerText = "Submitting...";
               fetch(scriptURL, { method: "POST", body: new FormData(form) })
                 .then((response) => {
-                  msg.innerHTML =
-                    "You've been added to the list for exclusive first access! Add to Calendar to ensure you don't miss out!";
-                  setTimeout(function () {
-                    msg.innerHTML = "";
-                  }, 5000);
-                  form.reset();
                   submitBtn.setAttribute("disabled", "disabled");
+                  submitBtn.innerText = "Notify me";
+
+                  emailSignUpSection.style.display = "none";
+                  addToCalendarSection.style.display = "flex";
+                  form.reset();
                 })
                 .catch((error) => console.error("Error!", error.message));
             });
           </script>
+          <script
+            src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2"
+            async
+            defer
+          ></script>
         </section>
       </div>
       <div class="trust-badge-container">
